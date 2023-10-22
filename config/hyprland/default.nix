@@ -88,7 +88,7 @@ in {
         windowrule = pin,title:scratch-calc
         windowrule = size 600 400,title:scratch-calc
         windowrule = center,title:scratch-calc
-      '' + cfg.bindings.translated.keyboard + cfg.bindings.translated.mouse;
+      '' + cfg.bindings.translated.full;
     };
   };
 }
