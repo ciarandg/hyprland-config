@@ -7,7 +7,7 @@ in {
       description = "A list of monitor names";
       type = lib.types.listOf lib.types.str;
     };
-    hyrpland-config.monitorConfig = lib.mkOption {
+    hyprland-config.monitorConfig = lib.mkOption {
       description = "Monitor configuration for hyprland.conf";
       type = lib.types.str;
     };
