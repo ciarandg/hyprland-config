@@ -1,5 +1,5 @@
 {
-  description = "A very basic flake";
+  description = "Ciaran's hyprland config";
 
   outputs = { self, nixpkgs }: {
 
