@@ -6,7 +6,8 @@
   cfg = config.hyprland-config;
 in {
   options.hyprland-config.bindings = {
-    keyboard = lib.mkOption {
+    keyboardBase = lib.mkOption {
+      description = "The base keyboard bindings for working with Hyprland and system utils";
       default = [
         # Kill Hyprland
         ["SUPER" "M" "exit" ""]
@@ -85,12 +86,18 @@ in {
         # Clipboard manager
         ["SUPER SHIFT" "C" "exec" "cliphist list | wofi --show dmenu | cliphist decode | wl-copy"]
 
+        # Program launcher
+        ["SUPER" "D" "exec" "wofi --show run"]
+      ];
+    };
+    keyboard = lib.mkOption {
+      description = "Extra keyboard bindings, split from base bindings for convenience";
+      default = [
         # Launch programs
         ["SUPER" "Return" "exec" "alacritty"]
         ["SUPER" "R" "exec" "alacritty -e lf"]
         ["SUPER SHIFT" "R" "exec" "alacritty -e htop"]
         ["SUPER" "W" "exec" "chromium"]
-        ["SUPER" "D" "exec" "wofi --show run"]
         ["SUPER SHIFT" "D" "exec" "discord"]
         ["SUPER SHIFT" "S" "exec" "steam"]
         ["SUPER" "C" "exec" "alacritty -t scratch-calc -e python3 -q"]
@@ -118,7 +125,8 @@ in {
         description = "Your hyprland bindings, in the format that hyprland.conf expects";
         readOnly = true;
         default = lib.strings.concatStringsSep "\n" (
-          (mkPartial "bind" cfg.bindings.keyboard)
+          (mkPartial "bind" cfg.bindings.keyboardBase)
+          ++ (mkPartial "bind" cfg.bindings.keyboard)
           ++ (mkPartial "bindm" cfg.bindings.mouse)
           ++ (mkPartial "bindl" cfg.bindings.switches)
         );
