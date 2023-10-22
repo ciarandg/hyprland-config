@@ -1,4 +1,9 @@
-{lib, config, pkgs, ...}: let
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}: let
   cfg = config.hyprland-config;
 in {
   options.hyprland-config = {
@@ -17,8 +22,10 @@ in {
       wallpapers = lib.strings.concatStrings (
         map (monitor: "wallpaper = ${monitor},${cfg.wallpaperPath}\n") cfg.monitors
       );
-    in ''
-      preload = ${cfg.wallpaperPath}
-    '' + wallpapers;
+    in
+      ''
+        preload = ${cfg.wallpaperPath}
+      ''
+      + wallpapers;
   };
 }
