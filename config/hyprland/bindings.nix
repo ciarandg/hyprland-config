@@ -94,6 +94,8 @@ in {
           rawBindings;
         in
           map (bind: "${commandName} = ${bind.mods}, ${bind.key}, ${bind.dispatcher}, ${bind.params}") bindingAttrs;
+        mkPartial2 = commandName: rawBindings:
+          map (binds: "${commandName} = " + (lib.strings.concatStringsSep "," binds)) rawBindings;
       in {
         keyboard = lib.mkOption {
           description = "Your hyprland keyboard bindings, in the format that hyprland.conf expects";
@@ -102,7 +104,7 @@ in {
             columns = ["mods" "key" "dispatcher" "params"];
             rawBindings = cfg.bindings.keyboard;
           in
-            mkPartial columns rawBindings "bind";
+            mkPartial2 "bind" rawBindings;
         };
         mouse = lib.mkOption {
           description = "Your hyprland mouse bindings, in the format that hyprland.conf expects";
@@ -111,7 +113,7 @@ in {
             columns = ["mods" "key" "dispatcher"];
             rawBindings = cfg.bindings.mouse;
           in
-            mkPartial columns rawBindings "bindm";
+            mkPartial2 "bindm" rawBindings;
         };
         switches = lib.mkOption {
           description = "Your hyprland switch bindings, in the format that hyprland.conf expects";
@@ -120,7 +122,7 @@ in {
             columns = ["mods" "key" "dispatcher" "params"];
             rawBindings = cfg.bindings.switches;
           in
-            mkPartial columns rawBindings "bindl";
+            mkPartial2 "bindl" rawBindings;
         };
       };
     };
