@@ -83,28 +83,26 @@ in {
           ++ cfg.bindings.translated.partials.switches
         );
       };
-      partials = {
+      partials = let
+        mkPartial = columns: rawBindings: commandName: let
+          bindingAttrs = map (
+            bindingRow:
+              lib.lists.foldl (a: b: a // b) {} (
+                lib.lists.zipListsWith (col: bind: {${col} = bind;}) columns bindingRow
+              )
+          )
+          rawBindings;
+        in
+          map (bind: "bind = ${bind.mods}, ${bind.key}, ${bind.dispatcher}, ${bind.params}") bindingAttrs;
+      in {
         keyboard = lib.mkOption {
           description = "Your hyprland keyboard bindings, in the format that hyprland.conf expects";
           readOnly = true;
           default = let
             columns = ["mods" "key" "dispatcher" "params"];
             rawBindings = cfg.bindings.keyboard;
-            bindingAttrs =
-              map (
-                bindingRow:
-                  lib.lists.foldl (a: b: a // b) {} (
-                    lib.lists.zipListsWith (col: bind: {${col} = bind;}) columns bindingRow
-                  )
-              )
-              rawBindings;
-            configLines =
-              map (
-                bind: "bind = ${bind.mods}, ${bind.key}, ${bind.dispatcher}, ${bind.params}"
-              )
-              bindingAttrs;
           in
-            configLines;
+            mkPartial columns rawBindings "bind";
         };
         mouse = lib.mkOption {
           description = "Your hyprland mouse bindings, in the format that hyprland.conf expects";
@@ -112,21 +110,8 @@ in {
           default = let
             columns = ["mods" "key" "dispatcher"];
             rawBindings = cfg.bindings.mouse;
-            bindingAttrs =
-              map (
-                bindingRow:
-                  lib.lists.foldl (a: b: a // b) {} (
-                    lib.lists.zipListsWith (col: bind: {${col} = bind;}) columns bindingRow
-                  )
-              )
-              rawBindings;
-            configLines =
-              map (
-                bind: "bindm = ${bind.mods}, ${bind.key}, ${bind.dispatcher}"
-              )
-              bindingAttrs;
           in
-            configLines;
+            mkPartial columns rawBindings "bindm";
         };
         switches = lib.mkOption {
           description = "Your hyprland switch bindings, in the format that hyprland.conf expects";
@@ -134,21 +119,8 @@ in {
           default = let
             columns = ["mods" "key" "dispatcher" "params"];
             rawBindings = cfg.bindings.switches;
-            bindingAttrs =
-              map (
-                bindingRow:
-                  lib.lists.foldl (a: b: a // b) {} (
-                    lib.lists.zipListsWith (col: bind: {${col} = bind;}) columns bindingRow
-                  )
-              )
-              rawBindings;
-            configLines =
-              map (
-                bind: "bindl = ${bind.mods}, ${bind.key}, ${bind.dispatcher}, ${bind.params}"
-              )
-              bindingAttrs;
           in
-            configLines;
+            mkPartial columns rawBindings "bindl";
         };
       };
     };
