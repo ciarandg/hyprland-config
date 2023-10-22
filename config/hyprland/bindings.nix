@@ -84,45 +84,23 @@ in {
         );
       };
       partials = let
-        mkPartial = columns: rawBindings: commandName: let
-          bindingAttrs = map (
-            bindingRow:
-              lib.lists.foldl (a: b: a // b) {} (
-                lib.lists.zipListsWith (col: bind: {${col} = bind;}) columns bindingRow
-              )
-          )
-          rawBindings;
-        in
-          map (bind: "${commandName} = ${bind.mods}, ${bind.key}, ${bind.dispatcher}, ${bind.params}") bindingAttrs;
-        mkPartial2 = commandName: rawBindings:
+        mkPartial = commandName: rawBindings:
           map (binds: "${commandName} = " + (lib.strings.concatStringsSep "," binds)) rawBindings;
       in {
         keyboard = lib.mkOption {
           description = "Your hyprland keyboard bindings, in the format that hyprland.conf expects";
           readOnly = true;
-          default = let
-            columns = ["mods" "key" "dispatcher" "params"];
-            rawBindings = cfg.bindings.keyboard;
-          in
-            mkPartial2 "bind" rawBindings;
+          default = mkPartial "bind" cfg.bindings.keyboard;
         };
         mouse = lib.mkOption {
           description = "Your hyprland mouse bindings, in the format that hyprland.conf expects";
           readOnly = true;
-          default = let
-            columns = ["mods" "key" "dispatcher"];
-            rawBindings = cfg.bindings.mouse;
-          in
-            mkPartial2 "bindm" rawBindings;
+          default = mkPartial "bindm" cfg.bindings.mouse;
         };
         switches = lib.mkOption {
           description = "Your hyprland switch bindings, in the format that hyprland.conf expects";
           readOnly = true;
-          default = let
-            columns = ["mods" "key" "dispatcher" "params"];
-            rawBindings = cfg.bindings.switches;
-          in
-            mkPartial2 "bindl" rawBindings;
+          default = mkPartial "bindl" cfg.bindings.switches;
         };
       };
     };
