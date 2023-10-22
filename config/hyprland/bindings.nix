@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   cfg = config.hyprland-config;
@@ -70,24 +71,24 @@ in {
         ["SUPER" "S" "pin" "active"]
 
         # Screen locker
-        ["SUPER" "X" "exec" "swaylock"]
+        ["SUPER" "X" "exec" "${lib.getExe pkgs.swaylock}"]
 
         # Screen brightness
         ["SUPER" "Minus" "exec" "brighter -i -10"]
         ["SUPER" "Equal" "exec" "brighter -i 10"]
 
         # Toggle waybar
-        ["SUPER" "B" "exec" "killall -SIGUSR1 .waybar-wrapped"]
+        ["SUPER" "B" "exec" "${pkgs.psmisc}/bin/killall -SIGUSR1 .waybar-wrapped"]
 
         # Screenshots
-        ["SUPER" "F11" "exec" "grim"]
-        ["SUPER SHIFT" "F11" "exec" "grim -g \"$(slurp)\""]
+        ["SUPER" "F11" "exec" "${lib.getExe pkgs.grim}"]
+        ["SUPER SHIFT" "F11" "exec" "${lib.getExe pkgs.grim} -g \"$(slurp)\""]
 
         # Clipboard manager
-        ["SUPER SHIFT" "C" "exec" "cliphist list | wofi --show dmenu | cliphist decode | wl-copy"]
+        ["SUPER SHIFT" "C" "exec" "${lib.getExe pkgs.cliphist} list | ${lib.getExe pkgs.wofi} --show dmenu | ${lib.getExe pkgs.cliphist} decode | ${pkgs.wl-clipboard}/bin/wl-copy"]
 
         # Program launcher
-        ["SUPER" "D" "exec" "wofi --show run"]
+        ["SUPER" "D" "exec" "${lib.getExe pkgs.wofi} --show run"]
       ];
     };
     keyboard = lib.mkOption {
