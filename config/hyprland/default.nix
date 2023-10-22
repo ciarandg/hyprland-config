@@ -95,7 +95,7 @@ in {
           windowrule = size 600 400,title:scratch-calc
           windowrule = center,title:scratch-calc
         ''
-        + cfg.bindings.translated.full;
+        + cfg.bindings.translated;
     };
   };
 }
