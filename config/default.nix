@@ -3,13 +3,15 @@
 in {
   imports = [];
   options = {
-    hyprland-config.monitors = lib.mkOption {
-      description = "A list of monitor names";
-      type = lib.types.listOf lib.types.str;
-    };
-    hyprland-config.monitorConfig = lib.mkOption {
-      description = "Monitor configuration for hyprland.conf";
-      type = lib.types.str;
+    hyprland-config = {
+      monitors = lib.mkOption {
+        description = "A list of monitor names";
+        type = lib.types.listOf lib.types.str;
+      };
+      monitorConfig = lib.mkOption {
+        description = "Monitor configuration for hyprland.conf";
+        type = lib.types.str;
+      };
     };
   };
   config = {
