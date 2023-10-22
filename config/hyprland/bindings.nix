@@ -1,8 +1,8 @@
 {lib, config, ...}: let
   cfg = config.hyprland-config;
 in {
-  options.hyprland-config = {
-    bindings = lib.mkOption {
+  options.hyprland-config.bindings = {
+    keyboard = lib.mkOption {
       default = [
         [ "bind" "SUPER" "M" "exit" "" ]
         [ "bind" "SUPER" "Q" "killactive" "" ]
@@ -39,10 +39,7 @@ in {
         [ "bind" "SUPER" "Tab" "workspace" "previous" ]
         [ "bind" "SUPER SHIFT" "F" "togglefloating" "active" ]
         [ "bind" "SUPER" "mouse:274" "toggleFloating" "active" ]
-        # [ "bindm" "SUPER" "mouse:272" "movewindow" "" ]
-        # [ "bindm" "SUPER" "mouse:273" "resizewindow" "" ]
         [ "bind" "SUPER" "S" "pin" "active" ]
-        # [ "bindl" "" "switch:Lid Switch" "exec" "swaylock" ]
         [ "bind" "SUPER" "X" "exec" "swaylock" ]
         [ "bind" "SUPER" "Minus" "exec" "brighter -i -10" ]
         [ "bind" "SUPER" "Equal" "exec" "brighter -i 10" ]
@@ -60,21 +57,34 @@ in {
         [ "bind" "SUPER" "C" "exec" "alacritty -t scratch-calc -e python3 -q" ]
         [ "bind" "SUPER SHIFT" "P" "exec" "helvum" ]
       ];
+    mouse = lib.mkOption {
+      default = [
+        [ "bindm" "SUPER" "mouse:272" "movewindow" "" ]
+        [ "bindm" "SUPER" "mouse:273" "resizewindow" "" ]
+      ];
     };
-    bindingsTranslated = lib.mkOption {
-      description = "Your hyprland bindings, in the format that hyprland.conf expects";
-      readOnly = true;
-      default = let
-        columns = ["command" "mods" "key" "dispatcher" "params"];
-        rawBindings = cfg.bindings;
-        bindingAttrs = map (bindingRow:
-        lib.lists.foldl (a: b: a // b) {} (
-          lib.lists.zipListsWith (col: bind: {${col} = bind;}) columns bindingRow)
-        ) rawBindings;
-        configLines = map (
-          bind: "${bind.command} = ${bind.mods}, ${bind.key}, ${bind.dispatcher}, ${bind.params}"
-        ) bindingAttrs;
-      in lib.strings.concatStringsSep "\n" configLines;
+    switches = lib.mkOption {
+      default = [
+        [ "bindl" "" "switch:Lid Switch" "exec" "swaylock" ]
+      ];
+    };
+    };
+    translated = {
+      keyboard = lib.mkOption {
+        description = "Your hyprland keyboard bindings, in the format that hyprland.conf expects";
+        readOnly = true;
+        default = let
+          columns = ["command" "mods" "key" "dispatcher" "params"];
+          rawBindings = cfg.bindings;
+          bindingAttrs = map (bindingRow:
+          lib.lists.foldl (a: b: a // b) {} (
+            lib.lists.zipListsWith (col: bind: {${col} = bind;}) columns bindingRow)
+          ) rawBindings;
+          configLines = map (
+            bind: "${bind.command} = ${bind.mods}, ${bind.key}, ${bind.dispatcher}, ${bind.params}"
+          ) bindingAttrs;
+        in lib.strings.concatStringsSep "\n" configLines;
+      };
     };
   };
 
