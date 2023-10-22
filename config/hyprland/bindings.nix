@@ -70,7 +70,7 @@ in {
     };
     switches = lib.mkOption {
       default = [
-        ["bindl" "" "switch:Lid Switch" "exec" "swaylock"]
+        ["" "switch:Lid Switch" "exec" "swaylock"]
       ];
     };
     translated = {
@@ -78,7 +78,9 @@ in {
         description = "Your hyprland bindings, in the format that hyprland.conf expects";
         readOnly = true;
         default = lib.strings.concatStringsSep "\n" (
-          cfg.bindings.translated.partials.keyboard ++ cfg.bindings.translated.partials.mouse
+          cfg.bindings.translated.partials.keyboard
+          ++ cfg.bindings.translated.partials.mouse
+          ++ cfg.bindings.translated.partials.switches
         );
       };
       partials = {
@@ -121,6 +123,28 @@ in {
             configLines =
               map (
                 bind: "bindm = ${bind.mods}, ${bind.key}, ${bind.dispatcher}"
+              )
+              bindingAttrs;
+          in
+            configLines;
+        };
+        switches = lib.mkOption {
+          description = "Your hyprland switch bindings, in the format that hyprland.conf expects";
+          readOnly = true;
+          default = let
+            columns = ["mods" "key" "dispatcher" "params"];
+            rawBindings = cfg.bindings.switches;
+            bindingAttrs =
+              map (
+                bindingRow:
+                  lib.lists.foldl (a: b: a // b) {} (
+                    lib.lists.zipListsWith (col: bind: {${col} = bind;}) columns bindingRow
+                  )
+              )
+              rawBindings;
+            configLines =
+              map (
+                bind: "bindl = ${bind.mods}, ${bind.key}, ${bind.dispatcher}, ${bind.params}"
               )
               bindingAttrs;
           in
