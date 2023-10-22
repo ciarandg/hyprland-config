@@ -57,6 +57,7 @@ in {
         ["SUPER" "C" "exec" "alacritty -t scratch-calc -e python3 -q" ]
         ["SUPER SHIFT" "P" "exec" "helvum" ]
       ];
+    };
     mouse = lib.mkOption {
       default = [
         [ "bindm" "SUPER" "mouse:272" "movewindow" "" ]
@@ -67,7 +68,6 @@ in {
       default = [
         [ "bindl" "" "switch:Lid Switch" "exec" "swaylock" ]
       ];
-    };
     };
     translated = {
       keyboard = lib.mkOption {
