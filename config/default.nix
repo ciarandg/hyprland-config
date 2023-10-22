@@ -1,7 +1,10 @@
 {pkgs, lib, config, ...}: let
   cfg = config.hyprland-config;
 in {
-  imports = [];
+  imports = [
+    ./hyprland
+  ];
+
   options = {
     hyprland-config = {
       enable = lib.mkEnableOption {
@@ -12,22 +15,14 @@ in {
         description = "A list of monitor names";
         type = lib.types.listOf lib.types.str;
       };
-      monitorConfig = lib.mkOption {
-        description = "Monitor configuration for hyprland.conf";
-        type = lib.types.str;
-      };
       wallpaperPath = lib.mkOption {
         description = "Path to wallpaper (PNG)";
         type = lib.types.path;
       };
     };
   };
-  config = lib.mkIf cfg.enable {
-    wayland.windowManager.hyprland = {
-      enable = true;
-      extraConfig = cfg.monitorConfig + builtins.readFile ./hyprland.conf;
-    };
 
+  config = lib.mkIf cfg.enable {
     home.packages = [
       pkgs.hyprpaper
       pkgs.grim
