@@ -12,6 +12,10 @@ in {
         description = "Monitor configuration for hyprland.conf";
         type = lib.types.str;
       };
+      wallpaperPath = lib.mkOption {
+        description = "Path to wallpaper (PNG)";
+        type = lib.types.path;
+      };
     };
   };
   config = {
