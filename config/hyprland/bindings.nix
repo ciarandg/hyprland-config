@@ -93,7 +93,7 @@ in {
           )
           rawBindings;
         in
-          map (bind: "bind = ${bind.mods}, ${bind.key}, ${bind.dispatcher}, ${bind.params}") bindingAttrs;
+          map (bind: "${commandName} = ${bind.mods}, ${bind.key}, ${bind.dispatcher}, ${bind.params}") bindingAttrs;
       in {
         keyboard = lib.mkOption {
           description = "Your hyprland keyboard bindings, in the format that hyprland.conf expects";
