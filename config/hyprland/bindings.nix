@@ -75,7 +75,7 @@ in {
         readOnly = true;
         default = let
           columns = ["mods" "key" "dispatcher" "params"];
-          rawBindings = cfg.bindings;
+          rawBindings = cfg.bindings.keyboard;
           bindingAttrs = map (bindingRow:
           lib.lists.foldl (a: b: a // b) {} (
             lib.lists.zipListsWith (col: bind: {${col} = bind;}) columns bindingRow)
