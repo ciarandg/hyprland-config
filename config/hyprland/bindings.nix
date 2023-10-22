@@ -113,15 +113,16 @@ in {
     translated = let
       mkPartial = commandName: rawBindings:
         map (binds: "${commandName}=" + (lib.strings.concatStringsSep "," binds)) rawBindings;
-    in lib.mkOption {
-      description = "Your hyprland bindings, in the format that hyprland.conf expects";
-      readOnly = true;
-      default = lib.strings.concatStringsSep "\n" (
-        (mkPartial "bind" cfg.bindings.keyboard)
-        ++ (mkPartial "bindm" cfg.bindings.mouse)
-        ++ (mkPartial "bindl" cfg.bindings.switches)
-      );
-    };
+    in
+      lib.mkOption {
+        description = "Your hyprland bindings, in the format that hyprland.conf expects";
+        readOnly = true;
+        default = lib.strings.concatStringsSep "\n" (
+          (mkPartial "bind" cfg.bindings.keyboard)
+          ++ (mkPartial "bindm" cfg.bindings.mouse)
+          ++ (mkPartial "bindl" cfg.bindings.switches)
+        );
+      };
   };
 
   config =
