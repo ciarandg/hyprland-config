@@ -60,8 +60,8 @@ in {
     };
     mouse = lib.mkOption {
       default = [
-        [ "bindm" "SUPER" "mouse:272" "movewindow" "" ]
-        [ "bindm" "SUPER" "mouse:273" "resizewindow" "" ]
+        [ "SUPER" "mouse:272" "movewindow" ]
+        [ "SUPER" "mouse:273" "resizewindow" ]
       ];
     };
     switches = lib.mkOption {
@@ -82,6 +82,21 @@ in {
           ) rawBindings;
           configLines = map (
             bind: "bind = ${bind.mods}, ${bind.key}, ${bind.dispatcher}, ${bind.params}"
+          ) bindingAttrs;
+        in lib.strings.concatStringsSep "\n" configLines;
+      };
+      mouse = lib.mkOption {
+        description = "Your hyprland mouse bindings, in the format that hyprland.conf expects";
+        readOnly = true;
+        default = let
+          columns = ["mods" "key" "dispatcher"];
+          rawBindings = cfg.bindings.mouse;
+          bindingAttrs = map (bindingRow:
+          lib.lists.foldl (a: b: a // b) {} (
+            lib.lists.zipListsWith (col: bind: {${col} = bind;}) columns bindingRow)
+          ) rawBindings;
+          configLines = map (
+            bind: "bindm = ${bind.mods}, ${bind.key}, ${bind.dispatcher}"
           ) bindingAttrs;
         in lib.strings.concatStringsSep "\n" configLines;
       };
