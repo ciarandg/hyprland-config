@@ -73,35 +73,18 @@ in {
         ["" "switch:Lid Switch" "exec" "swaylock"]
       ];
     };
-    translated = {
+    translated = let
+      mkPartial = commandName: rawBindings:
+        map (binds: "${commandName} = " + (lib.strings.concatStringsSep "," binds)) rawBindings;
+    in {
       full = lib.mkOption {
         description = "Your hyprland bindings, in the format that hyprland.conf expects";
         readOnly = true;
         default = lib.strings.concatStringsSep "\n" (
-          cfg.bindings.translated.partials.keyboard
-          ++ cfg.bindings.translated.partials.mouse
-          ++ cfg.bindings.translated.partials.switches
+          (mkPartial "bind" cfg.bindings.keyboard)
+          ++ (mkPartial "bindm" cfg.bindings.mouse)
+          ++ (mkPartial "bindl" cfg.bindings.switches)
         );
-      };
-      partials = let
-        mkPartial = commandName: rawBindings:
-          map (binds: "${commandName} = " + (lib.strings.concatStringsSep "," binds)) rawBindings;
-      in {
-        keyboard = lib.mkOption {
-          description = "Your hyprland keyboard bindings, in the format that hyprland.conf expects";
-          readOnly = true;
-          default = mkPartial "bind" cfg.bindings.keyboard;
-        };
-        mouse = lib.mkOption {
-          description = "Your hyprland mouse bindings, in the format that hyprland.conf expects";
-          readOnly = true;
-          default = mkPartial "bindm" cfg.bindings.mouse;
-        };
-        switches = lib.mkOption {
-          description = "Your hyprland switch bindings, in the format that hyprland.conf expects";
-          readOnly = true;
-          default = mkPartial "bindl" cfg.bindings.switches;
-        };
       };
     };
   };
