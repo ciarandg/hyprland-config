@@ -51,6 +51,7 @@ in {
           }
 
           binds {
+              # https://github.com/hyprwm/Hyprland/issues/2691
               allow_workspace_cycles = yes
           }
 
