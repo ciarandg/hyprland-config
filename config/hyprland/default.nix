@@ -50,6 +50,10 @@ in {
               sensitivity = 0.6 # [-1.0, 1.0]
           }
 
+          binds {
+              allow_workspace_cycles = yes
+          }
+
           general {
               gaps_in = 5
               gaps_out = 20
