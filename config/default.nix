@@ -3,9 +3,7 @@
   lib,
   config,
   ...
-}: let
-  cfg = config.hyprland-config;
-in {
+}: {
   imports = [
     ./hyprland
     ./hyprpaper
@@ -22,16 +20,5 @@ in {
         type = lib.types.listOf lib.types.str;
       };
     };
-  };
-
-  config = lib.mkIf cfg.enable {
-    home.packages = [
-      pkgs.grim
-      pkgs.slurp
-      pkgs.wofi
-      pkgs.wl-clipboard
-      pkgs.cliphist
-      # cpkgs.brighter
-    ];
   };
 }
