@@ -14,6 +14,7 @@ in {
       cliphist = lib.getExe pkgs.cliphist;
       wofi = lib.getExe pkgs.wofi;
       wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
+      brightnessctl = lib.getExe pkgs.brightnessctl;
     in lib.mkOption {
       description = "The base keyboard bindings for working with Hyprland and system utils";
       default = [
@@ -81,8 +82,8 @@ in {
         ["SUPER" "X" "exec" swaylock]
 
         # Screen brightness
-        ["SUPER" "Minus" "exec" "brighter -i -10"]
-        ["SUPER" "Equal" "exec" "brighter -i 10"]
+        ["SUPER" "Minus" "exec" "${brightnessctl} s 10%-"]
+        ["SUPER" "Equal" "exec" "${brightnessctl} s +10%"]
 
         # Toggle waybar
         ["SUPER" "B" "exec" "${killall} -SIGUSR1 .waybar-wrapped"]
