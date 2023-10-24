@@ -15,7 +15,7 @@ in {
     };
     execOnce = lib.mkOption {
       description = "A list of commands to run at startup";
-      type = lib.types.str;
+      type = lib.types.listOf lib.types.str;
       default = [
         (lib.getExe pkgs.waybar)
         (lib.getExe pkgs.hyprpaper)
