@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   cfg = config.hyprland-config;
@@ -16,9 +17,9 @@ in {
       description = "A list of commands to run at startup";
       type = lib.types.str;
       default = [
-        "waybar"
-        "hyprpaper"
-        "wl-paste --watch cliphist store"
+        (lib.getExe pkgs.waybar)
+        (lib.getExe pkgs.hyprpaper)
+        "${lib.getExe pkgs.wl-clipboard}/bin/wl-paste --watch cliphist store"
       ];
     };
   };
