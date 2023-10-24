@@ -6,7 +6,7 @@
 }: let
   cfg = config.hyprland-config;
 in {
-  options.hyprland-config = {
+  options.hyprland-config.hyprpaper = {
     wallpaperPath = lib.mkOption {
       description = "Path to wallpaper (PNG)";
       type = lib.types.path;

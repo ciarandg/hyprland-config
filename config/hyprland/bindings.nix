@@ -6,7 +6,7 @@
 }: let
   cfg = config.hyprland-config;
 in {
-  options.hyprland-config.bindings = {
+  options.hyprland-config.hyprland.bindings = {
     keyboardBase = let
       swaylock = lib.getExe pkgs.swaylock;
       killall = "${pkgs.psmisc}/bin/killall";

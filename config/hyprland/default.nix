@@ -7,7 +7,7 @@
 in {
   imports = [./bindings.nix];
 
-  options.hyprland-config = {
+  options.hyprland-config.hyprland = {
     monitorConfig = lib.mkOption {
       description = "Monitor configuration for hyprland.conf";
       type = lib.types.str;
