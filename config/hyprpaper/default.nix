@@ -20,11 +20,11 @@ in {
 
     home.file.".config/hypr/hyprpaper.conf".text = let
       wallpapers = lib.strings.concatStrings (
-        map (monitor: "wallpaper = ${monitor},${cfg.wallpaperPath}\n") cfg.monitors
+        map (monitor: "wallpaper = ${monitor},${cfg.hyprpaper.wallpaperPath}\n") cfg.monitors
       );
     in
       ''
-        preload = ${cfg.wallpaperPath}
+        preload = ${cfg.hyprpaper.wallpaperPath}
       ''
       + wallpapers;
   };

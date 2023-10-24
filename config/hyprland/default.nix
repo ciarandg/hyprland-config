@@ -18,7 +18,7 @@ in {
     wayland.windowManager.hyprland = {
       enable = true;
       extraConfig =
-        cfg.monitorConfig
+        cfg.hyprland.monitorConfig
         + ''
           # Execute your favorite apps at launch
           exec-once = waybar & hyprpaper & wl-paste --watch cliphist store
@@ -100,7 +100,7 @@ in {
           windowrule = size 600 400,title:scratch-calc
           windowrule = center,title:scratch-calc
         ''
-        + cfg.bindings.translated;
+        + cfg.hyprland.bindings.translated;
     };
   };
 }
