@@ -16,10 +16,12 @@ in {
     execOnce = lib.mkOption {
       description = "A list of commands to run at startup";
       type = lib.types.listOf lib.types.str;
-      default = [
-        (lib.getExe pkgs.waybar)
-        (lib.getExe pkgs.hyprpaper)
-        "${pkgs.wl-clipboard}/bin/wl-paste --watch ${lib.getExe pkgs.cliphist} store"
+      default = let
+        bin = import ./binary-paths.nix lib pkgs;
+      in [
+        bin.waybar
+        bin.hyprpaper
+        "${bin.wl-paste} --watch ${bin.cliphist} store"
       ];
     };
   };

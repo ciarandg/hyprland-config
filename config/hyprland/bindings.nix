@@ -8,13 +8,7 @@
 in {
   options.hyprland-config.hyprland.bindings = {
     keyboardBase = let
-      swaylock = lib.getExe pkgs.swaylock;
-      killall = "${pkgs.psmisc}/bin/killall";
-      grim = lib.getExe pkgs.grim;
-      cliphist = lib.getExe pkgs.cliphist;
-      wofi = lib.getExe pkgs.wofi;
-      wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
-      brightnessctl = lib.getExe pkgs.brightnessctl;
+      bin = import ./binary-paths.nix lib pkgs;
     in lib.mkOption {
       description = "The base keyboard bindings for working with Hyprland and system utils";
       default = [
@@ -79,24 +73,24 @@ in {
         ["SUPER" "S" "pin" "active"]
 
         # Screen locker
-        ["SUPER" "X" "exec" swaylock]
+        ["SUPER" "X" "exec" bin.swaylock]
 
         # Screen brightness
-        ["SUPER" "Minus" "exec" "${brightnessctl} s 10%-"]
-        ["SUPER" "Equal" "exec" "${brightnessctl} s +10%"]
+        ["SUPER" "Minus" "exec" "${bin.brightnessctl} s 10%-"]
+        ["SUPER" "Equal" "exec" "${bin.brightnessctl} s +10%"]
 
         # Toggle waybar
-        ["SUPER" "B" "exec" "${killall} -SIGUSR1 .waybar-wrapped"]
+        ["SUPER" "B" "exec" "${bin.killall} -SIGUSR1 .waybar-wrapped"]
 
         # Screenshots
-        ["SUPER" "F11" "exec" grim]
-        ["SUPER SHIFT" "F11" "exec" "${grim} -g \"$(slurp)\""]
+        ["SUPER" "F11" "exec" bin.grim]
+        ["SUPER SHIFT" "F11" "exec" "${bin.grim} -g \"$(slurp)\""]
 
         # Clipboard manager
-        ["SUPER SHIFT" "C" "exec" "${cliphist} list | ${wofi} --show dmenu | ${cliphist} decode | ${wl-copy}"]
+        ["SUPER SHIFT" "C" "exec" "${bin.cliphist} list | ${bin.wofi} --show dmenu | ${bin.cliphist} decode | ${bin.wl-copy}"]
 
         # Program launcher
-        ["SUPER" "D" "exec" "${wofi} --show run"]
+        ["SUPER" "D" "exec" "${bin.wofi} --show run"]
       ];
     };
     keyboard = lib.mkOption {
