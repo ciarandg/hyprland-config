@@ -21,7 +21,9 @@ in {
         cfg.hyprland.monitorConfig
         + ''
           # Execute your favorite apps at launch
-          exec-once = waybar & hyprpaper & wl-paste --watch cliphist store
+          exec-once = waybar
+          exec-once = hyprpaper
+          exec-once = wl-paste --watch cliphist store
 
           # Source a file (multi-file configs)
           # source = ~/.config/hypr/myColors.conf
