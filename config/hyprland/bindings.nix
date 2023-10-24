@@ -134,10 +134,10 @@ in {
         description = "Your hyprland bindings, in the format that hyprland.conf expects";
         readOnly = true;
         default = lib.strings.concatStringsSep "\n" (
-          (mkPartial "bind" cfg.bindings.keyboardBase)
-          ++ (mkPartial "bind" cfg.bindings.keyboard)
-          ++ (mkPartial "bindm" cfg.bindings.mouse)
-          ++ (mkPartial "bindl" cfg.bindings.switches)
+          (mkPartial "bind" cfg.hyprland.bindings.keyboardBase)
+          ++ (mkPartial "bind" cfg.hyprland.bindings.keyboard)
+          ++ (mkPartial "bindm" cfg.hyprland.bindings.mouse)
+          ++ (mkPartial "bindl" cfg.hyprland.bindings.switches)
         );
       };
   };
