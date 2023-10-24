@@ -19,7 +19,7 @@ in {
       default = [
         (lib.getExe pkgs.waybar)
         (lib.getExe pkgs.hyprpaper)
-        "${lib.getExe pkgs.wl-clipboard}/bin/wl-paste --watch cliphist store"
+        "${lib.getExe pkgs.wl-clipboard}/bin/wl-paste --watch ${lib.getExe pkgs.cliphist} store"
       ];
     };
   };
