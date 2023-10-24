@@ -12,19 +12,28 @@ in {
       description = "Monitor configuration for hyprland.conf";
       type = lib.types.str;
     };
+    execOnce = lib.mkOption {
+      description = "A list of commands to run at startup";
+      type = lib.types.str;
+      default = [
+        "waybar"
+        "hyprpaper"
+        "wl-paste --watch cliphist store"
+      ];
+    };
   };
 
   config = lib.mkIf cfg.enable {
-    wayland.windowManager.hyprland = {
+    wayland.windowManager.hyprland = let
+      execOnce = lib.strings.concatStringsSep "\n" (
+        map (cmd: "exec-once = ${cmd}") cfg.hyprland.execOnce
+      );
+    in {
       enable = true;
       extraConfig =
         cfg.hyprland.monitorConfig
+        + execOnce
         + ''
-          # Execute your favorite apps at launch
-          exec-once = waybar
-          exec-once = hyprpaper
-          exec-once = wl-paste --watch cliphist store
-
           # Source a file (multi-file configs)
           # source = ~/.config/hypr/myColors.conf
 
