@@ -20,7 +20,7 @@ in {
         bin = import ./binary-paths.nix lib pkgs;
       in [
         bin.waybar
-        bin.hyprpaper
+        "${bin.hyprpaper} --config ${cfg.hyprpaper.configPath}"
         "${bin.wl-paste} --watch ${bin.cliphist} store"
       ];
     };

@@ -11,21 +11,17 @@ in {
       description = "Path to wallpaper (PNG)";
       type = lib.types.path;
     };
-  };
-
-  config = lib.mkIf cfg.enable {
-    home.packages = [
-      pkgs.hyprpaper
-    ];
-
-    home.file.".config/hypr/hyprpaper.conf".text = let
-      wallpapers = lib.strings.concatStrings (
-        map (monitor: "wallpaper = ${monitor},${cfg.hyprpaper.wallpaperPath}\n") cfg.monitors
-      );
-    in
-      ''
-        preload = ${cfg.hyprpaper.wallpaperPath}
-      ''
-      + wallpapers;
+    configPath = lib.mkOption {
+      description = "";
+      type = lib.types.path;
+      readOnly = true;
+      default = let
+        mkWallpaperLine = (
+          monitor: "wallpaper = ${monitor},${cfg.hyprpaper.wallpaperPath}\n"
+        );
+        wallpapers = lib.strings.concatStrings (map mkWallpaperLine cfg.monitors);
+        config = "preload = ${cfg.hyprpaper.wallpaperPath}\n" + wallpapers;
+      in builtins.toFile "hyprpaper.conf" config;
+    };
   };
 }
