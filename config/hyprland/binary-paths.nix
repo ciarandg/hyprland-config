@@ -5,7 +5,7 @@ lib: pkgs: {
   cliphist = lib.getExe pkgs.cliphist;
   wofi = lib.getExe pkgs.wofi;
   wl-copy = "${pkgs.wl-clipboard}/bin/wl-copy";
-  wl-paste =  "${pkgs.wl-clipboard}/bin/wl-paste";
+  wl-paste = "${pkgs.wl-clipboard}/bin/wl-paste";
   brightnessctl = lib.getExe pkgs.brightnessctl;
   waybar = lib.getExe pkgs.waybar;
   hyprpaper = lib.getExe pkgs.hyprpaper;
