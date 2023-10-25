@@ -14,6 +14,7 @@
     };
 
     nixosModules = {
+      hyprland = import ./config_nixos;
       hyprlandConfigHome = import ./config_home;
     };
   };
