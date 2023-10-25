@@ -28,8 +28,8 @@ in {
 
   config = lib.mkIf cfg.enable {
     wayland.windowManager.hyprland = let
-      execOnce = lib.strings.concatStringsSep "\n" (
-        map (cmd: "exec-once = ${cmd}") cfg.hyprland.execOnce
+      execOnce = lib.strings.concatStrings (
+        map (cmd: "exec-once = ${cmd}\n") cfg.hyprland.execOnce
       );
     in {
       enable = true;
