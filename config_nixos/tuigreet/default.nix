@@ -6,9 +6,6 @@
 }: let
   cfg = config.hyprland-config;
 in {
-  options.hyprland-config.hyprland = {
-  };
-
   config = lib.mkIf cfg.enable {
     services.greetd = {
       enable = true;

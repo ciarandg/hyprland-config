@@ -1,5 +1,11 @@
-{...}: {
-  config = {
+{
+  lib,
+  config,
+  ...
+}: let
+  cfg = config.hyprland-config;
+in {
+  config = lib.mkIf cfg.enable {
     programs.swaylock.settings = let
       grey = "282828";
       red = "fb4934";
