@@ -9,7 +9,7 @@
 in lib.mkIf cfg.enable {
   programs.rofi = {
     enable = true;
-    location = "top";
+    location = "center";
     font = "JetBrainsMono Nerd Font 12";
     theme = "gruvbox-dark";
     extraConfig = {
