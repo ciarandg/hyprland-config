@@ -5,6 +5,7 @@
   imports = [
     ./hyprland
     ./hyprpaper
+    ./rofi
     ./swaylock
     ./waybar
     ./xdg-desktop-portal-hyprland

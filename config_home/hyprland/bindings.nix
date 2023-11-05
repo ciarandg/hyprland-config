@@ -88,10 +88,10 @@ in {
           ["SUPER SHIFT" "F11" "exec" "${bin.grim} -g \"$(slurp)\""]
 
           # Clipboard manager
-          ["SUPER SHIFT" "C" "exec" "${bin.cliphist} list | ${bin.wofi} --show dmenu | ${bin.cliphist} decode | ${bin.wl-copy}"]
+          ["SUPER SHIFT" "C" "exec" "${bin.cliphist} list | ${bin.rofi} -dmenu | ${bin.cliphist} decode | ${bin.wl-copy}"]
 
           # Program launcher
-          ["SUPER" "D" "exec" "${bin.wofi} --show run"]
+          ["SUPER" "D" "exec" "${bin.rofi} -show drun"]
         ];
       };
     keyboard = lib.mkOption {
