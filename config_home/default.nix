@@ -5,6 +5,7 @@
   imports = [
     ./hyprland
     ./hyprpaper
+    ./xdg-desktop-portal-hyprland
   ];
 
   options = {
