@@ -3,6 +3,7 @@
   ...
 }: {
   imports = [
+    ./swaylock
     ./tuigreet
   ];
 
