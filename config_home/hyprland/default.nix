@@ -27,6 +27,8 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    home.packages = [pkgs.wl-clipboard];
+
     wayland.windowManager.hyprland = let
       execOnce = lib.strings.concatStrings (
         map (cmd: "exec-once = ${cmd}\n") cfg.hyprland.execOnce
