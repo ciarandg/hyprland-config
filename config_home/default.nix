@@ -5,6 +5,7 @@
   imports = [
     ./hyprland
     ./hyprpaper
+    ./mako
     ./rofi
     ./swaylock
     ./waybar
