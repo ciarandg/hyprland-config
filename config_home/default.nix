@@ -5,6 +5,7 @@
   imports = [
     ./hyprland
     ./hyprpaper
+    ./swaylock
     ./xdg-desktop-portal-hyprland
   ];
 
