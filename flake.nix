@@ -17,5 +17,11 @@
       hyprland = import ./config_nixos;
       hyprlandConfigHome = import ./config_home;
     };
+
+    nixosConfigurations = let
+      config = (import ./testing) system;
+    in {
+      testing = nixpkgs.lib.nixosSystem config;
+    };
   };
 }
