@@ -6,6 +6,7 @@
     ./hyprland
     ./hyprpaper
     ./swaylock
+    ./waybar
     ./xdg-desktop-portal-hyprland
   ];
 
