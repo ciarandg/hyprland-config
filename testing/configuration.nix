@@ -8,15 +8,12 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
-  users.users.alice = {
+  users.users.test = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    packages = with pkgs; [
-      firefox
-      tree
-    ];
-    initialPassword = "testpw";
+    packages = [];
+    initialPassword = "password";
   };
 
-  system.stateVersion = "22.11";
+  system.stateVersion = "23.05";
 }
