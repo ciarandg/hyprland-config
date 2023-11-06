@@ -3,9 +3,13 @@
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+  inputs.home-manager.url = "github:nix-community/home-manager";
+  inputs.home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
   outputs = {
     self,
     nixpkgs,
+    home-manager,
   }: let
     system = "x86_64-linux";
   in {
@@ -19,7 +23,7 @@
     };
 
     nixosConfigurations = let
-      config = (import ./testing) system self.outputs.nixosModules.hyprland;
+      config = (import ./testing) self system home-manager;
     in {
       testing = nixpkgs.lib.nixosSystem config;
     };
