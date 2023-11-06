@@ -19,7 +19,7 @@
     };
 
     nixosConfigurations = let
-      config = (import ./testing) system;
+      config = (import ./testing) system self.outputs.nixosModules.hyprland;
     in {
       testing = nixpkgs.lib.nixosSystem config;
     };

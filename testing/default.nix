@@ -1,5 +1,8 @@
-system: {
+system: hyprland: {
   inherit system;
-  modules = [./configuration.nix];
+  modules = [
+    ./configuration.nix
+    hyprland
+  ];
   specialArgs = {};
 }

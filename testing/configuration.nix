@@ -10,5 +10,7 @@
     initialPassword = "password";
   };
 
+  hyprland-config.enable = true;
+
   system.stateVersion = "23.05";
 }
