@@ -29,6 +29,12 @@ in {
   config = lib.mkIf cfg.enable {
     home.packages = [pkgs.wl-clipboard];
 
+    home.pointerCursor = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Classic";
+      size = 20;
+    };
+
     wayland.windowManager.hyprland = let
       execOnce = lib.strings.concatStrings (
         map (cmd: "exec-once = ${cmd}\n") cfg.hyprland.execOnce
@@ -41,9 +47,6 @@ in {
         + ''
           # Source a file (multi-file configs)
           # source = ~/.config/hypr/myColors.conf
-
-          # Some default env vars.
-          env = XCURSOR_SIZE,24
 
           input {
               kb_layout = us
