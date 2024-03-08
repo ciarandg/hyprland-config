@@ -32,7 +32,7 @@ in {
     home.pointerCursor = {
       package = pkgs.bibata-cursors;
       name = "Bibata-Modern-Classic";
-      size = 20;
+      size = 12;
     };
 
     wayland.windowManager.hyprland = let
