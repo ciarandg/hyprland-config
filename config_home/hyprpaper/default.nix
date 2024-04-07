@@ -20,7 +20,7 @@ in {
           monitor: "wallpaper = ${monitor},${cfg.hyprpaper.wallpaperPath}\n"
         );
         wallpapers = lib.strings.concatStrings (map mkWallpaperLine cfg.monitors);
-        config = "preload = ${cfg.hyprpaper.wallpaperPath}\n" + wallpapers;
+        config = "preload = ${cfg.hyprpaper.wallpaperPath}\nsplash = false\n" + wallpapers;
       in builtins.toFile "hyprpaper.conf" config;
     };
   };
