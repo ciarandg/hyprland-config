@@ -85,7 +85,7 @@ in {
 
           # Screenshots
           ["SUPER" "F11" "exec" bin.grim]
-          ["SUPER SHIFT" "F11" "exec" "${bin.grim} -g \"$(slurp)\""]
+          ["SUPER SHIFT" "F11" "exec" "${bin.grim} -g \"$(${bin.slurp})\""]
 
           # Clipboard manager
           ["SUPER SHIFT" "C" "exec" "${bin.cliphist} list | ${bin.rofi} -dmenu | ${bin.cliphist} decode | ${bin.wl-copy}"]

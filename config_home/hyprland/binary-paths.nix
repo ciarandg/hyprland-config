@@ -9,4 +9,5 @@ lib: pkgs: {
   brightnessctl = lib.getExe pkgs.brightnessctl;
   waybar = lib.getExe pkgs.waybar;
   hyprpaper = lib.getExe pkgs.hyprpaper;
+  slurp = lib.getExe pkgs.slurp;
 }
