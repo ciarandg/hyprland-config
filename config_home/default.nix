@@ -8,6 +8,7 @@
     ./mako
     ./rofi
     ./swaylock
+    ./udiskie
     ./waybar
     ./xdg-desktop-portal-hyprland
   ];
