@@ -108,8 +108,7 @@ in {
 
           master {
               mfact = 0.8
-              new_is_master = true
-              no_gaps_when_only = false
+              new_status = master
               inherit_fullscreen = true
           }
 
