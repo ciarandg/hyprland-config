@@ -99,7 +99,7 @@ in {
       default = [
         # Launch programs
         ["SUPER" "Return" "exec" "alacritty"]
-        ["SUPER" "R" "exec" "alacritty -e lf"]
+        ["SUPER" "R" "exec" "alacritty -e yazi"]
         ["SUPER SHIFT" "R" "exec" "alacritty -e htop"]
         ["SUPER" "W" "exec" "chromium"]
         ["SUPER SHIFT" "D" "exec" "discord"]
